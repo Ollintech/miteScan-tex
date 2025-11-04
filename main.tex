@@ -1,0 +1,171 @@
+\documentclass{beamer}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage[brazil]{babel}
+\usetheme{Madrid}
+
+% -------------------------------------------------
+% Identidade Visual - Centro Paula Souza
+% -------------------------------------------------
+\definecolor{cpsred}{RGB}{153,0,0}      % Vermelho institucional
+\definecolor{cpsgray}{RGB}{85,85,85}    % Cinza técnico
+
+\usecolortheme[named=cpsred]{structure}
+\setbeamercolor{title}{fg=white,bg=cpsred}
+\setbeamercolor{frametitle}{fg=white,bg=cpsred}
+\setbeamercolor{structure}{fg=cpsred}
+\setbeamercolor{normal text}{fg=black,bg=white}
+\setbeamercolor{itemize item}{fg=cpsred}
+
+\usepackage{ragged2e}
+\usepackage{hyperref}
+\usepackage{graphicx}
+
+\setbeamertemplate{headline}{}
+\setbeamertemplate{footline}[frame number]
+\addtobeamertemplate{footline}{
+  \hfill\usebeamercolor[fg]{frametitle}{\hspace{-1.5cm}\scriptsize Prof. MSc. Frederico Barbosa Muniz}\hspace{1cm}
+}{}
+
+% -------------------------------------------------
+% Informações principais
+% -------------------------------------------------
+\title[MiteScan - DSM3]{\textbf{MiteScan - DSM3}}
+\author{Desenvolvido por alunos da FATEC Registro}
+\institute{Centro Paula Souza \\ FATEC Registro}
+\date{}
+
+% -------------------------------------------------
+% Documento
+% -------------------------------------------------
+\begin{document}
+
+% Capa
+\begin{frame}
+    \centering
+    \vspace{1cm}
+    {\color{cpsred}\Huge\textbf{MiteScan - DSM4}}\\[0.8cm]
+    {\Large Projeto de Desenvolvimento de Sistemas}\\[0.4cm]
+    \textcolor{cpsgray}{Centro Paula Souza}\\[0.2cm]
+    \textcolor{cpsgray}{FATEC Registro}
+\end{frame}
+
+% Sumário
+\begin{frame}{Sumário}
+\tableofcontents
+\end{frame}
+
+% -------------------------------------------------
+% SEÇÕES
+% -------------------------------------------------
+
+\section{Pitch}
+\begin{frame}{Pitch}
+\justifying
+O \textbf{MiteScan} é um sistema inteligente para monitoramento de colmeias, que utiliza técnicas de \textbf{Aprendizado de Máquina} e \textbf{Processamento de Imagens} para detectar precocemente a presença do ácaro \textit{Varroa destructor}.  
+\\[0.3cm]
+O projeto visa apoiar o apicultor na gestão de suas colmeias, permitindo um controle mais eficiente, sustentável e automatizado das infestações.
+\end{frame}
+
+\section{Problematização}
+\begin{frame}{Problematização}
+\justifying
+O ácaro \textit{Varroa destructor} é uma das principais ameaças às colônias de abelhas, causando enfraquecimento e morte das colmeias.  
+\\[0.3cm]
+A inspeção manual é demorada, sujeita a erros e depende da experiência do apicultor.  
+\\[0.3cm]
+O \textbf{MiteScan} busca automatizar a detecção do parasita, reduzindo perdas e melhorando o manejo apícola.  
+\\[0.3cm]
+\textbf{Fontes de imagem:}  
+\scriptsize
+\url{https://entomologytoday.org/.../honey-bee-with-varroa-mite-3/} \\
+\url{https://pixabay.com/photos/honeybee-bee-varroa-parasite-mite-7339727/} \\
+\url{https://www.dadant.com/learn/how-to-treat-varroa-mites-in-bees/}
+\end{frame}
+
+\section{Estado da Arte}
+\begin{frame}{Estado da Arte}
+\justifying
+\textbf{Artigo 1:} \textit{Deep learning beehive monitoring system for early detection of the varroa mite}  
+\\[0.2cm]
+\textbf{Artigo 2:} \textit{Desarrollo de un sistema de reconocimiento y conteo del parasito Varroa destructor en colmenas para probar efectividad de tratamientos}  
+\\[0.2cm]
+\textbf{Artigo 3:} \textit{ApIsoT: An IoT Function Aggregation Mechanism for Detecting Varroa Infestation in Apis mellifera Species}  
+\\[0.3cm]
+Esses trabalhos inspiram a proposta do MiteScan, que agrega monitoramento ambiental, análise de imagem e integração com IoT.
+\end{frame}
+
+\section{Objetivos}
+\begin{frame}{Objetivos}
+\justifying
+\textbf{Objetivo Geral:}  
+Desenvolver um sistema inteligente de monitoramento apícola para detecção e prevenção de infestações por \textit{Varroa destructor}.  
+\\[0.4cm]
+\textbf{Objetivos Específicos:}
+\begin{itemize}
+    \item Implementar algoritmo de Aprendizado de Máquina e Processamento de Imagens;
+    \item Identificar precocemente a presença do ácaro na colônia;
+    \item Facilitar o diagnóstico e alerta ao apicultor;
+    \item Configurar Arduino/ESP8266 para monitorar temperatura e umidade;
+    \item Emitir alertas automáticos ao detectar anomalias.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Objetivos Complementares}
+\justifying
+\begin{itemize}
+    \item Monitorar variáveis ambientais que favorecem a proliferação do ácaro;
+    \item Permitir o cadastro de colmeias e apicultores;
+    \item Exibir dados de temperatura e umidade via aplicação web;
+    \item Integrar com banco de dados e API para comunicação em tempo real.
+\end{itemize}
+\end{frame}
+
+\section{Metodologia}
+\begin{frame}{Metodologia (Fluxo 1)}
+\justifying
+\textbf{Fluxo de interação principal:}
+\begin{itemize}
+    \item O usuário realiza uma ação na aplicação web;
+    \item Uma requisição HTTP é enviada para a API (FastAPI);
+    \item A API processa a solicitação e consulta o banco de dados (AWS);
+    \item Os dados retornam para a interface Front-End, exibindo as informações ao apicultor.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Metodologia (Fluxo 2)}
+\justifying
+\textbf{Fluxo de detecção da Varroa:}
+\begin{itemize}
+    \item O microcontrolador ESP8266 realiza leitura de temperatura e umidade;
+    \item Envia dados via protocolo MQTT para a API;
+    \item A API encaminha as informações ao modelo de IA;
+    \item O modelo processa a imagem e detecta o ácaro Varroa;
+    \item O resultado é enviado ao Front-End e apresentado ao usuário.
+\end{itemize}
+\end{frame}
+
+\section{Apresentação do Sistema}
+\begin{frame}{Apresentação do Sistema}
+\justifying
+O sistema \textbf{MiteScan} integra hardware e software para o controle automatizado de colmeias:  
+\\[0.3cm]
+\begin{itemize}
+    \item Interface Web para visualização e cadastro de colmeias;
+    \item Módulo IoT com ESP8266 para leitura de dados ambientais;
+    \item Modelo de IA para detecção de ácaros em imagens;
+    \item Comunicação em tempo real via API e banco de dados na AWS.
+\end{itemize}
+\end{frame}
+
+\section{Conclusão}
+\begin{frame}{Conclusão}
+\justifying
+O projeto MiteScan contribui para o \textbf{Objetivo de Desenvolvimento Sustentável (ODS) 15}, relacionado à \textbf{vida terrestre}.  
+\\[0.3cm]
+O sistema se mostra mais eficiente que a inspeção visual tradicional, oferecendo \textbf{respostas rápidas} e \textbf{manejo adequado} das colmeias.  
+\\[0.3cm]
+Permite avaliar se a colmeia está suscetível a infestações e auxilia o apicultor em decisões de prevenção e tratamento.
+\end{frame}
+
+\end{document}
